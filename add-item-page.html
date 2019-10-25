@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ToDo-Add item</title>
+    <meta name="description" content="ToDo with javascript">
+    <meta name="author" content="Jonas E, Marcus K, Marcus G/W">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+
+
+        
+            #check-list {
+                position: absolute; top: 50px; left: 1000px;
+                width: 200px; height: 100px;
+                background-color: gray;
+                text-align: center;
+                line-height: 75px;
+            }
+        
+            #add-item {
+                position: absolute; top:50px; left:400px;
+                width: 200px; height: 100px;
+                background-color: orangered;
+                text-align: center;
+                line-height: 75px;
+            }
+        
+            #overview {
+                position: absolute; top: 50px; left:700px;
+                width: 200px; height: 100px;
+                background-color: gray;
+                text-align: center;
+                line-height: 75px;
+                
+        }
+        
+            </style>
+</head>
+
+<body>
+
+    
+        <div id="check-list">check list</div>
+        <div id="add-item">Add Item</div>
+        <div id="overview">Overview</div>
+
+    <div>
+        <h2 id="todo-title">Enter your todo input</h2>
+        <input id="todo-input" placeholder="Enter here">
+        <h3 id="priority-text">Add a priority on the to do</h3>
+            <input class="priority-option" type="radio" name="priority" value="low">Low<br>
+            <input class="priority-option" type="radio" name="priority" value="mid">Medium<br>
+            <input class="priority-option" type="radio" name="priority" value="high">High<br>   
+        <h3 id="deadline-text">Deadline</h3>
+        <input type="date" id="deadline-input" min="2019-10-23">
+        <button id="submit-todo-button">Submit</button>
+    </div>
+    <div>
+        <h2>Todo - List</h2>
+        <ul id="todo-list">
+    </div>
+
+    </ul>
+    
+</body>
+
+<script src="add item scripts.js"></script>
+
+</html>
