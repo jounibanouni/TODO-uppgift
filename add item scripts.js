@@ -9,6 +9,8 @@ var EventHandlers = (function () {
         const toDoInput = document.getElementById("todo-input")
         const priorityInput = document.getElementsByClassName("priority-option");
         const deadlineInput = document.getElementById("deadline-input");
+
+       
         var priority = 0;
 
 
@@ -19,30 +21,31 @@ var EventHandlers = (function () {
             }
         }
         var post = { title: toDoInput.value, priority: priority, deadline: deadlineInput.value }
-        let postArray = [];
 
-
-        DocumentEdit.addTodoInput(toDoInput.value, priority, deadlineInput.value);
-        LocalStorageHelper.savePost(post);
+        if (toDoInput.value && deadlineInput.value !== "" && priority !== 0){
+            LocalStorageHelper.savePost(post);
+        }
+        else{
+            alert("Please enter value on all of the fields");
+        }
+        //DocumentEdit.addTodoInput(toDoInput.value, priority, deadlineInput.value);
+        
     }
 
     return { init }
 })();
 
-var DocumentEdit = (function () {
-    function addTodoInput(text, priority, deadline) {
-        const todoList = document.getElementById("post-list");
 
-        todoList.innerHTML += "<li>" + text + "-" + priority + "-" + deadline + "</li>";
 
+var LocalStorageHelper = (function () { 
+
+    if(localStorage.length === 0){
+        var postSlot = 0;
     }
-
-    return { addTodoInput }
-})();
-
-var LocalStorageHelper = (function () {
-
-    let postSlot = 0;
+    else{
+        postSlot = localStorage.length;
+    }
+    
 
     function savePost(post) {
         const postString = JSON.stringify(post);        
