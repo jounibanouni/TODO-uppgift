@@ -1,3 +1,20 @@
+
+function getPost(current){
+    const postString = localStorage.getItem(current);
+    const post = JSON.parse(postString);
+
+    return post;
+}
+
+function addPostToListShow(){
+    const todoList = document.getElementById("todo-list-show");
+    for(let i = 0; i < localStorage.length; i++){
+        post = getPost(i);
+        todoList.innerHTML += "<li>" + post.title + "| Priority: " + post.priority + "| Deadline:" + post.deadline + "</li>";
+    }
+    
+}
+
 const addItemClick = document.getElementById("add-item");
 addItemClick.addEventListener("click", addItemOnClick);
 
@@ -25,3 +42,5 @@ function addItemOnClick() {
 function createAccountOnClick() {
     window.location.href = 'create-account-page.html';
 }
+
+window.addEventListener("DOMContentLoaded", addPostToListShow);

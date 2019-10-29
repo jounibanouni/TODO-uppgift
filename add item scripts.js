@@ -1,31 +1,59 @@
-var EventHandlers = (function(){
-    function init(){
+var EventHandlers = (function () {
+    function init() {
         const toDoSubmitButton = document.getElementById("submit-todo-button");
-        toDoSubmitButton.addEventListener("click", submitTodo)  
+        toDoSubmitButton.addEventListener("click", submitTodo)
 
     }
 
-    function submitTodo(){
+    function submitTodo() {
         const toDoInput = document.getElementById("todo-input")
         const priorityInput = document.getElementsByClassName("priority-option");
         const deadlineInput = document.getElementById("deadline-input");
+        var priority = 0;
 
-        DocumentEdit.addTodoInput(toDoInput.value, priorityInput.value, deadlineInput.value);
+
+        for (const i in priorityInput) {
+            if (priorityInput[i].checked === true) {
+                priority = priorityInput[i].defaultValue;
+                console.log(priority);
+            }
+        }
+        var post = { title: toDoInput.value, priority: priority, deadline: deadlineInput.value }
+        let postArray = [];
+
+
+        DocumentEdit.addTodoInput(toDoInput.value, priority, deadlineInput.value);
+        LocalStorageHelper.savePost(post);
     }
 
-    return{init}
+    return { init }
 })();
 
-var DocumentEdit = (function(){
-    function addTodoInput(text, priority, deadline){
-        const todoList = document.getElementById("todo-list");
+var DocumentEdit = (function () {
+    function addTodoInput(text, priority, deadline) {
+        const todoList = document.getElementById("post-list");
 
-        todoList.innerHTML += "<li>" + text + "-" + "-" + priority + "-" + deadline + "</li>";
-        
+        todoList.innerHTML += "<li>" + text + "-" + priority + "-" + deadline + "</li>";
+
     }
 
-    return{addTodoInput}
+    return { addTodoInput }
 })();
+
+var LocalStorageHelper = (function () {
+
+    let postSlot = 0;
+
+    function savePost(post) {
+        const postString = JSON.stringify(post);        
+        localStorage.setItem(postSlot, postString);
+        postSlot++;
+    }
+
+    return { savePost }
+
+})();
+
 
 window.addEventListener("DOMContentLoaded", EventHandlers.init);
 
