@@ -1,3 +1,17 @@
+#container{
+    position: relative;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#content-container{
+    overflow: hidden;
+	position: relative;
+	border: 2px solid #171b1e;
+	background-color: RGBA(16,37,198,0.4);
+	padding: 2vw;
+	vertical-align: baseline;
+}
 #create-new-user-box{
     display: none;
 }
@@ -5,3 +19,27 @@
 #loggedin-box{
     display: none;
 }
+
+#list-of-todos{
+   list-style-type: none !important;
+}
+.list-class{
+    list-style-type: none;
+}
+#loggedin-box{
+    width: 100%;
+}
+#login-box{
+    width: 100%;
+}
+#logout-button{
+    display:none;
+    float: right;
+    
+}
+
+#show-todos{
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+

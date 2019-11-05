@@ -8,29 +8,38 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="create-new-user-box">
-        <h2>Create new user</h2>
-        <input type="text" id="username-input" placeholder="Username">
-        <input type="password" id="password-input" placeholder="Password">
-        <button id="submit-user-button">Submit user</button>
+    <div id="container">
+        <div id="content-container">
+            <div id="create-new-user-box">
+                <h2>Create new user</h2>
+                <input type="text" id="username-input" placeholder="Username">
+                <input type="password" id="password-input" placeholder="Password">
+                <button id="submit-user-button">Create user</button>
+            </div>
+            <br>
+            <div id="login-box">
+                <h2>Log in</h2>
+                <input type="text" id="username-login-input" placeholder="Username">
+                <input type="password" id="password-login-input" placeholder="Password">
+                <button id="login-button">Log in</button>
+                <button id="create-new-user-button">Create new user</button>
+            </div>
+            
+            <div id="loggedin-box">
+                <input type="text" id="new-todo-description" placeholder="Enter todo...">
+                <button id="submit-new-todo">Create new TODO</button>
+                
+                <div id="show-todos">
+                
+                    <ul id="list-of-todos">
+                    </ul>
+                    
+                </div>
+                <button id="clear-todo">Clear TODO</button>
+                <button id="logout-button">Log out</button>
+            </div>
+        </div>
     </div>
-    <br>
-    <div id="login-box">
-        <h2>Log in</h2>
-        <input type="text" id="username-login-input" placeholder="Username">
-        <input type="password" id="password-login-input" placeholder="Password">
-        <button id="login-button">Log in</button>
-        <button id="create-new-user-button">Create new user</button>
-    </div>
-    <div id="show-todos">
-        <ul>
-        </ul>
-    </div>
-    <div id="loggedin-box">
-        <input type="text" id="new-todo-description" placeholder="Enter todo...">
-        <button id="submit-new-todo">Create new TODO</button>
-    </div>
-
     
     <script src="scripts.js"></script>
 </body>
