@@ -61,21 +61,35 @@ var TODOStorage = (function () {
     }
 
     function removeTodoByCheckbox() {
+        let todoCounter = todos.length;
 
-        for (const i in todos) {
+        for (let i = 0; i < todoCounter; i++) {
             const todo = todos[i];
 
-            if (todo.userid === loggedinUserId) {
-
-                if (document.getElementById("checkBox" + todo.id).checked) {
-                    //alert(todo.id);
-                    TODOStorage.deleteTodoById(todo.id);
-                    continue;
-                }
+            if (document.getElementById("checkBox" + todo.id).checked) {
+                //alert(todo.id);
+                todo.done = true;
+                console.log("done status updated")
+                updateTodo(todo.id, todo.done, todo.description);
+                TODOStorage.deleteTodoById(todo.id);
             }
-
         }
 
+    }
+
+    function completeTodoCheckbox() {
+        let todoCounter = todos.length;
+
+        for (let i = 0; i < todoCounter; i++) {
+            const todo = todos[i];
+
+            if (document.getElementById("checkBox" + todo.id).checked) {
+
+                todo.done = true;               
+                updateTodo(todo.id, todo.done, todo.description);
+            }
+        }
+        clearPage();
     }
 
     function listTodosByUser(loggedinUserId) {
@@ -83,7 +97,12 @@ var TODOStorage = (function () {
         for (const i in todos) {
             const todo = todos[i];
             if (loggedinUserId === todos[i].userid) {
-                listShowTodos.innerHTML += "<li class='list-class'id='listInput" + todo.id + "'><input type='checkbox' id='checkBox" + todo.id + "' >" + todo.description + "</li>";
+                if (todo.done === true){
+                    listShowTodos.innerHTML += "<li style='color: red;' class='list-class'id='listInput" + todo.id + "'><input type='checkbox' id='checkBox" + todo.id + "' >" + todo.description + "</li>";
+                }
+                else{
+                    listShowTodos.innerHTML += "<li class='list-class'id='listInput" + todo.id + "'><input type='checkbox' id='checkBox" + todo.id + "' >" + todo.description + "</li>";
+                }
             }
         }
     }
@@ -124,7 +143,8 @@ var TODOStorage = (function () {
         updateTodo,
         deleteTodoById,
         listTodosByUser,
-        removeTodoByCheckbox
+        removeTodoByCheckbox,
+        completeTodoCheckbox
     }
 
 })();
@@ -144,8 +164,8 @@ var UserStorage = (function () {
 
     function createNewUser(username, password) {
         //Get maxID in todos
-        for (const i in users){
-            if(users[i].username === username){
+        for (const i in users) {
+            if (users[i].username === username) {
                 alert("That username is already taken!");
                 return;
             }
@@ -196,16 +216,20 @@ var UserStorage = (function () {
                     alert("Wrong password or username");
                 }
             }
-            if (username !== users[i].username){
+            if (username !== users[i].username) {
                 continue;
             }
         }
 
-        if (foundUser === false){
+        if (foundUser === false) {
             alert("Could not find user");
         }
+
+
         console.log(loggedinUserId);
     }
+
+    
 
     return {
         init,
@@ -235,6 +259,9 @@ var EventHandlers = (function () {
         const logoutButton = document.getElementById("logout-button");
         logoutButton.addEventListener("click", logOutFromPage);
 
+        const completeTodoButton = document.getElementById("complete-todo");
+        completeTodoButton.addEventListener("click", completeTodoCheckbox);
+
         //window.addEventListener("onload", hideCreateTodo)
 
     }
@@ -247,6 +274,10 @@ var EventHandlers = (function () {
 
     function logOutFromPage() {
         location.reload();
+    }
+
+    function completeTodoCheckbox(){
+        TODOStorage.completeTodoCheckbox();
     }
 
     function createNewUserInfo() {
@@ -285,7 +316,7 @@ var EventHandlers = (function () {
         const descriptionInput = document.getElementById("new-todo-description");
 
         descriptionInputString = descriptionInput.value;
-        if(descriptionInputString === ""){
+        if (descriptionInputString === "") {
             return;
         }
         TODOStorage.createNewTodo(loggedinUserId, false, descriptionInputString)
@@ -306,6 +337,8 @@ function loggedInScreen() {
     loggedinBox.style.display = "block";
     loginDivBox.style.display = "none";
 }
+
+
 
 
 function clearPage() {
